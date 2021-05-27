@@ -33,7 +33,6 @@ export class AppComponent implements OnInit {
     this._todoService.getTodoItems().subscribe(
       (res: TodoModel[]) => {
         this.list = res;
-        console.log(this.list);
       }
     )
   }
@@ -50,13 +49,11 @@ export class AppComponent implements OnInit {
     this.list.push({ id: this.list.length + 1, name: itemName, isMarked: false });
     this.isAlert = false;
     this.onCloseEditBtn();
-    console.log(this.list);
   }
 
   // delete item from the item list
   public onDeleteItem(index: number) {
     this.list.splice(index, 1);
-    console.log(this.list);
   }
 
   // prepare variables for edit item
@@ -74,7 +71,6 @@ export class AppComponent implements OnInit {
       }
     }
     this.onCloseEditBtn();
-    console.log(this.list);
   }
 
   // button to close Edit button and then toggle to add button
@@ -98,6 +94,5 @@ export class AppComponent implements OnInit {
         this.list[i] = { id: item.id, name: item.name, isMarked: true };
       }
     }
-    console.log(this.list)
   }
 }
