@@ -1,21 +1,57 @@
-<!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    Welcome to {{ title }}!
-  </h1>
-  <img width="300" alt="Angular Logo" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://angular.io/cli">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" rel="noopener" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
-</ul>
+<div class="container">
+  <h1 class="text-success text-center"> {{ title | uppercase }}</h1>
 
-<router-outlet></router-outlet>
+  <div class="row my-5">
+    <div class="col-sm-12 d-flex justify-content-center">
+      <div>
+        <input type="text" class="form-control" placeholder="Item" [(ngModel)]="selectForEdit" #inputItem>
+      </div>
+      <div>
+        <button class="btn btn-success btn" (click)="onAddItem(inputItem.value)" *ngIf="!isEditable">Add Item</button>
+        <button class="btn btn-warning btn" (click)="onEditItem(inputItem.value, toBeEdit.id)" *ngIf="isEditable">Edit
+          Item</button>
+        <button type="button" class="close" aria-label="Close" *ngIf="isEditable" (click)="onCloseEditBtn()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-sm-12 text-center">
+      <div class="text-danger ml-2" *ngIf="isAlert">
+        <p>Item already exist.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Item Name</th>
+            <th scope="col">Action</th>
+          </tr>`
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of list; let i = index;"
+            [ngStyle]="{'background': (item.isMarked) ? 'lightgray' : 'white'}">
+            <th scope="row"> {{ i + 1 }} </th>
+            <td> {{ item.name | titlecase }} </td>
+            <td>
+              <span class="m-2">
+                <button class="btn btn-sm btn-primary" (click)="onDeleteItem(i)"><i class="fa fa-trash-o"
+                    aria-hidden="true"></i></button>
+              </span>
+              <span class="m-2">
+                <button class="btn btn-sm btn-primary" (click)="onSelectItemToEdit(item)" *ngIf="!item.isMarked"><i
+                    class="fa fa-pencil" aria-hidden="true"></i></button>
+              </span>
+              <a *ngIf="!item.isMarked" class="text-primary ml-2" (click)="onMark(item)"> Mark </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

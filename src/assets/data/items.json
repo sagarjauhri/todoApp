@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "name": "Umbrella",
+    "isMarked": false
+  },
+  {
+    "id": 2,
+    "name": "Remote",
+    "isMarked": false
+  }
+]
